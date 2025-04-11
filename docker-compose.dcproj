@@ -15,5 +15,35 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Common\Factories\ErrorResponseFactory.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Common\Models\PaginatedResult.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\CancelSale\CancelSaleCommand.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\CancelSale\CancelSaleHandler.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\CancelSale\CancelSaleResult.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\CancelSale\CancelSaleValidator.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\Common\SaleItemDto.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\Common\SaleItemValidationRules.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\CreateSale\CreateSaleCommand.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\CreateSale\CreateSaleHandler.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\CreateSale\CreateSaleResult.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\CreateSale\CreateSaleValidator.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\DeleteSale\DeleteSaleCommand.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\DeleteSale\DeleteSaleHandler.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\DeleteSale\DeleteSaleResult.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\DeleteSale\DeleteSaleValidator.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\ListSales\ListSalesHandler.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\ListSales\ListSalesQuery.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\ListSales\SaleDto.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\UpdateSale\UpdateSaleCommand.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\UpdateSale\UpdateSaleHandler.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\UpdateSale\UpdateSaleResult.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\UpdateSale\UpdateSaleValidator.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Domain\Dtos\SaleDto.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Domain\Entities\SaleItem.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Domain\Repositories\IBaseRepository.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Domain\Repositories\ISaleRepository.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Infrastructure\Data\ApplicationDbContext.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.ORM\Repositories\BaseRepository.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.ORM\Repositories\SaleRepository.cs" />
   </ItemGroup>
 </Project>

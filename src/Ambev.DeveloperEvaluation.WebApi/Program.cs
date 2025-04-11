@@ -1,8 +1,10 @@
 using Ambev.DeveloperEvaluation.Application;
+using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Common.HealthChecks;
 using Ambev.DeveloperEvaluation.Common.Logging;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Common.Validation;
+using Ambev.DeveloperEvaluation.Infrastructure.Data;
 using Ambev.DeveloperEvaluation.IoC;
 using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
@@ -29,10 +31,11 @@ public class Program
             builder.AddBasicHealthChecks();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<DefaultContext>(options =>
+            // Ensure ApplicationDbContext inherits from DbContext in its definition.
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.ORM")
+                    b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.Infrastructure")
                 )
             );
 
@@ -51,6 +54,9 @@ public class Program
             });
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateSaleHandler>());
 
             var app = builder.Build();
             app.UseMiddleware<ValidationExceptionMiddleware>();
