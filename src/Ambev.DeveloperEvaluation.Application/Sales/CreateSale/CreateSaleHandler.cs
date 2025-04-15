@@ -1,6 +1,7 @@
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
@@ -13,14 +14,15 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleResult>
 {
     private readonly ISaleRepository _saleRepository;
-
+    private readonly ILogger<CreateSaleHandler> _logger;
     /// <summary>
     /// Initializes a new instance of the <see cref="CreateSaleHandler"/> class.
     /// </summary>
     /// <param name="saleRepository">The repository used to persist the sale.</param>
-    public CreateSaleHandler(ISaleRepository saleRepository)
+    public CreateSaleHandler(ISaleRepository saleRepository, ILogger<CreateSaleHandler> logger)
     {
         _saleRepository = saleRepository;
+        _logger = logger;
     }
 
     /// <summary>
@@ -48,6 +50,11 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
 
         var sale = new Sale(saleItems, totalAmount);
         await _saleRepository.CreateAsync(sale);
+
+        // Log the SaleCreated event with DateTime.Now
+        _logger.LogInformation("SaleCreated: Sale ID {SaleId} created at {CreatedAt} with {ItemCount} items.",
+            sale.Id, DateTime.Now, sale.Items.Count);
+
 
         return new CreateSaleResult(sale.Id, sale.SaleNumber, sale.TotalAmount);
     }

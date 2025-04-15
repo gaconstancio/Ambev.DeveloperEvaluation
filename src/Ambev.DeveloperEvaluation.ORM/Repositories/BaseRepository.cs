@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -62,5 +63,10 @@ public class BaseRepository<TEntity, TContext> : IBaseRepository<TEntity>
     public async Task<TEntity?> GetByIdAsync(Guid id)
     {
         return await _dbSet.FindAsync(id);
+    }
+
+    public Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+    {
+        throw new NotImplementedException();
     }
 }

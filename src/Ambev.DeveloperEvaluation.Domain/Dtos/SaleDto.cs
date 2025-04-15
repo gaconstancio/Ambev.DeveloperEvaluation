@@ -24,4 +24,9 @@ public class SaleDto
     /// Gets or sets a value indicating whether the sale is cancelled.
     /// </summary>
     public bool IsCancelled { get; set; }
+
+    /// <summary>
+    /// Gets or sets the sale date.
+    /// </summary>  
+    public DateTime SaleDate { get; set; }
 }

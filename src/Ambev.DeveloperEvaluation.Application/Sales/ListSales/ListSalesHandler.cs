@@ -1,6 +1,5 @@
 using System.Text.Json;
 using Ambev.DeveloperEvaluation.Application.Common.Models;
-using Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 using Ambev.DeveloperEvaluation.Domain.DTOs;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using MediatR;
@@ -18,12 +17,23 @@ public class ListSalesHandler : IRequestHandler<ListSalesQuery, PaginatedResult<
     {
         try
         {
-            var sales = await _saleRepository.GetPagedAndFilteredAsync(request.Page, request.Size, request.Order, request.Filter);
+            // Delegar toda a lógica de filtragem, ordenação e paginação ao repositório
+            var sales = await _saleRepository.GetPagedAndFilteredAsync(
+                request.Page,
+                request.Size,
+                request.Order,
+                request.Filter,
+                request.MinTotalAmount,
+                request.MaxTotalAmount,
+                request.MinDate,
+                request.MaxDate
+            );
+
             var totalCount = await _saleRepository.GetTotalCountAsync();
 
             return new PaginatedResult<SaleDto>
             {
-                Items = sales,
+                Items = sales.ToList(),
                 TotalCount = totalCount,
                 Page = request.Page,
                 Size = request.Size
@@ -31,8 +41,6 @@ public class ListSalesHandler : IRequestHandler<ListSalesQuery, PaginatedResult<
         }
         catch (Exception ex)
         {
-            // Log the exception (if logging is configured)
-            // Return a formatted error response
             throw new ApplicationException(JsonSerializer.Serialize(new
             {
                 type = "InternalServerError",
@@ -41,4 +49,6 @@ public class ListSalesHandler : IRequestHandler<ListSalesQuery, PaginatedResult<
             }));
         }
     }
+
+
 }

@@ -1,5 +1,6 @@
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 
@@ -9,14 +10,15 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 public class DeleteSaleHandler : IRequestHandler<DeleteSaleCommand, DeleteSaleResult>
 {
     private readonly ISaleRepository _saleRepository;
-
+    private readonly ILogger<DeleteSaleHandler> _logger;
     /// <summary>
     /// Initializes a new instance of the <see cref="DeleteSaleHandler"/> class.
     /// </summary>
     /// <param name="saleRepository">The repository used to delete the sale.</param>
-    public DeleteSaleHandler(ISaleRepository saleRepository)
+    public DeleteSaleHandler(ISaleRepository saleRepository, ILogger<DeleteSaleHandler> logger)
     {
         _saleRepository = saleRepository;
+        _logger = logger;
     }
 
     /// <summary>
@@ -33,7 +35,11 @@ public class DeleteSaleHandler : IRequestHandler<DeleteSaleCommand, DeleteSaleRe
             throw new KeyNotFoundException($"The sale with ID {request.SaleId} was not found.");
         }
 
-        await _saleRepository.DeleteAsync(request.SaleId);
+        await _saleRepository.DeleteAsync(new Domain.Entities.Sale() { Id = request.SaleId});
+
+        // Log the SaleDeleted event with DateTime.Now
+        _logger.LogInformation("SaleDeleted: Sale ID {SaleId} deleted at {CreatedAt} ",
+            sale.Id, DateTime.Now);
 
         return new DeleteSaleResult
         {

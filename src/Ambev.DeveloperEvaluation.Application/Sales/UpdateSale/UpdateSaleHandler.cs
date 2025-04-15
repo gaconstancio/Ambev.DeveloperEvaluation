@@ -1,3 +1,8 @@
+using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
+using MediatR;
+using Microsoft.Extensions.Logging;
+
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 
 /// <summary>
@@ -9,6 +14,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
 {
     private readonly ISaleRepository _saleRepository;
+    private readonly ILogger<UpdateSaleHandler> _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateSaleHandler"/> class.
@@ -59,6 +65,9 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
 
         // Persist the updated sale
         await _saleRepository.UpdateAsync(sale);
+
+        _logger.LogInformation("SaleUpdated: Sale ID {SaleId} updated at {CreatedAt} with {ItemCount} items.",
+            sale.Id, DateTime.Now, sale.Items.Count);
 
         // Return the result
         return new UpdateSaleResult(sale.Id, sale.SaleNumber, sale.TotalAmount);

@@ -1,3 +1,5 @@
+using FluentValidation;
+
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 
 /// <summary>
@@ -17,12 +19,14 @@ public class UpdateSaleValidator : AbstractValidator<UpdateSaleCommand>
         {
             SaleItemValidationRules.ApplyCommonRules(item);
         });
-
+        
         RuleFor(x => x.Items)
             .NotEmpty().WithMessage("The item list cannot be empty.");
 
         RuleFor(x => x.SaleId)
             .NotEmpty().WithMessage("The sale ID is required.");
+
+        SaleItemValidationRules.ApplyTotalQuantityRule(this, x => x.Items);
     }
 }
 

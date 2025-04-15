@@ -101,8 +101,23 @@ public class Sale : BaseEntity
     /// <summary>
     /// Recalculates the total amount of the sale based on the items.
     /// </summary>
-    private void RecalculateTotalAmount()
+    public void RecalculateTotalAmount()
     {
         TotalAmount = Items.Sum(item => item.TotalAmount);
     }
+
+    /// <summary>
+    /// Updates the items of the sale.
+    /// </summary>
+    /// <param name="updatedItems">The new collection of sale items.</param>
+    public void UpdateItems(ICollection<SaleItem> updatedItems)
+    {
+        Items.Clear(); // Remove all existing items
+        foreach (var item in updatedItems)
+        {
+            Items.Add(item); // Add the updated items
+        }
+        RecalculateTotalAmount(); // Recalculate the total amount
+    }
+
 }

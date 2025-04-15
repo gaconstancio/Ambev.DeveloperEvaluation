@@ -22,6 +22,9 @@ public class CreateSaleValidator : AbstractValidator<CreateSaleCommand>
 
         RuleFor(x => x.Items)
             .NotEmpty().WithMessage("The item list cannot be empty.");
+
+        SaleItemValidationRules.ApplyTotalQuantityRule(this, x => x.Items);
     }
 }
+
 

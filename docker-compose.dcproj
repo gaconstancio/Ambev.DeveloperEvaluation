@@ -31,6 +31,9 @@
     <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\DeleteSale\DeleteSaleHandler.cs" />
     <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\DeleteSale\DeleteSaleResult.cs" />
     <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\DeleteSale\DeleteSaleValidator.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\GetSaleById\GetSaleByIdHandler.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\GetSaleById\GetSaleByIdQuery.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\GetSaleById\GetSaleByIdResult.cs" />
     <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\ListSales\ListSalesHandler.cs" />
     <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\ListSales\ListSalesQuery.cs" />
     <None Include="src\Ambev.DeveloperEvaluation.Application\Sales\ListSales\SaleDto.cs" />
@@ -45,5 +48,10 @@
     <None Include="src\Ambev.DeveloperEvaluation.Infrastructure\Data\ApplicationDbContext.cs" />
     <None Include="src\Ambev.DeveloperEvaluation.ORM\Repositories\BaseRepository.cs" />
     <None Include="src\Ambev.DeveloperEvaluation.ORM\Repositories\SaleRepository.cs" />
+    <None Include="src\Ambev.DeveloperEvaluation.WebApi\Controllers\SalesController.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\Common\SaleItemValidationRulesTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\CreateSale\CreateSaleHandlerTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\CreateSale\CreateSaleValidatorTests.cs" />
+    <None Include="tests\Ambev.DeveloperEvaluation.Unit\Application\Sales\UpdateSale\UpdateSaleValidatorTests.cs" />
   </ItemGroup>
 </Project>

@@ -22,6 +22,7 @@
     <Folder Include="Sales\Common\" />
     <Folder Include="Sales\ListSales\" />
     <Folder Include="Sales\DeleteSale\" />
+    <Folder Include="Sales\GetSaleById\" />
     <Folder Include="Sales\UpdateSale\" />
   </ItemGroup>
 

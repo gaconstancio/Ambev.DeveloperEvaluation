@@ -16,7 +16,15 @@ public interface ISaleRepository : IBaseRepository<Sale>
     /// <param name="order">The ordering criteria.</param>
     /// <param name="filter">The filtering criteria.</param>
     /// <returns>A list of sales matching the criteria.</returns>
-    Task<IEnumerable<SaleDto>> GetPagedAndFilteredAsync(int page, int size, string? order, string? filter);
+     Task<IEnumerable<SaleDto>> GetPagedAndFilteredAsync(
+       int page,
+       int size,
+       string? order,
+       string? filter,
+       decimal? minTotalAmount = null,
+       decimal? maxTotalAmount = null,
+       DateTime? minDate = null,
+       DateTime? maxDate = null);
 
     /// <summary>
     /// Retrieves the total count of sales.
