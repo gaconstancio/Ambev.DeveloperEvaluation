@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace Ambev.DeveloperEvaluation.ORM;
@@ -33,8 +34,8 @@ public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         builder.UseNpgsql(
-               connectionString,
-               b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.WebApi")
+            connectionString,
+            x => x.MigrationsAssembly("Ambev.DeveloperEvaluation.ORM")
         );
 
         return new DefaultContext(builder.Options);

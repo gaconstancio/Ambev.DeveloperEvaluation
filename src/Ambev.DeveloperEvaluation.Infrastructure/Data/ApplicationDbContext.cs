@@ -8,29 +8,15 @@ namespace Ambev.DeveloperEvaluation.Infrastructure.Data;
 /// </summary>
 public class ApplicationDbContext : DbContext
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
-    /// </summary>
-    /// <param name="options">The options to configure the context.</param>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }
 
-    /// <summary>
-    /// Gets or sets the sales in the database.
-    /// </summary>
     public DbSet<Sale> Sales { get; set; }
-
-    /// <summary>
-    /// Gets or sets the users in the database.
-    /// </summary>
     public DbSet<User> Users { get; set; }
+    public DbSet<SaleItem> SaleItems { get; set; }
 
-    /// <summary>
-    /// Configures the model for the database.
-    /// </summary>
-    /// <param name="modelBuilder">The model builder.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -42,6 +28,22 @@ public class ApplicationDbContext : DbContext
             entity.Property(s => s.SaleNumber).IsRequired().HasMaxLength(50);
             entity.Property(s => s.TotalAmount).HasColumnType("decimal(18,2)");
             entity.Property(s => s.IsCancelled).HasDefaultValue(false);
+
+            // Relation with SaleItems
+            entity.HasMany(s => s.Items)
+                  .WithOne()
+                  .HasForeignKey("SaleId")
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // Configure SaleItem entity
+        modelBuilder.Entity<SaleItem>(entity =>
+        {
+            entity.HasKey(i => i.Id);
+            entity.Property(i => i.Product).IsRequired().HasMaxLength(100);
+            entity.Property(i => i.UnitPrice).HasColumnType("decimal(18,2)");
+            entity.Property(i => i.Discount).HasColumnType("decimal(18,2)");
+            entity.Property(i => i.TotalAmount).HasColumnType("decimal(18,2)");
         });
 
         // Configure User entity
@@ -53,5 +55,3 @@ public class ApplicationDbContext : DbContext
         });
     }
 }
-
-

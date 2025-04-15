@@ -31,20 +31,14 @@ namespace Ambev.DeveloperEvaluation.WebApi.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
-            var response = new ApiResponse
+            var response = new
             {
-                Success = false,
-                Message = "Validation Failed",
-                Errors = exception.Errors
-                    .Select(error => (ValidationErrorDetail)error)
+                type = "ValidationError",
+                error = "Invalid input data",
+                detail = exception.Errors.Select(e => e.ErrorMessage)
             };
 
-            var jsonOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-
-            return context.Response.WriteAsync(JsonSerializer.Serialize(response, jsonOptions));
+            return context.Response.WriteAsJsonAsync(response);
         }
     }
 }

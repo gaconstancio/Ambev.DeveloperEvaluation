@@ -31,7 +31,7 @@ public class SaleItem : BaseEntity
     /// <summary>
     /// Gets the total amount of the item, considering quantity, unit price, and discount.
     /// </summary>
-    public decimal TotalAmount => (UnitPrice * Quantity) - Discount;
+    public decimal TotalAmount { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the SaleItem class.
